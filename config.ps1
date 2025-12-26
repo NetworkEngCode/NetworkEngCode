@@ -17,20 +17,22 @@ $Config = @{
 
     # Layout / spacing
     Layout = @{
-        Width       = 900
-        Height      = 700
-        FontSize    = 14
-        LineHeight  = 18
+    Width       = 900
+    Height      = 580
+    FontSize    = 14
+    LineHeight  = 18
 
-        # Left ASCII block position
-        AsciiX      = 20
-        AsciiY      = 95
+    # ASCII block (left)
+    AsciiX      = 20
+    AsciiY      = 95   # ⬅ moved DOWN
 
-        # Right-side content position
-        ContentX    = 420  # <--- Increased value for separation
-        ContentY    = 140
+    # Content block (right)
+    ContentX    = 400  # ⬅ moved RIGHT
+    ContentY    = 120  # ⬅ moved DOWN
 
-        TargetWidth = 56
+    TargetWidth = 56
+}
+
     }
 
     # Profile information
