@@ -1,41 +1,31 @@
-# =========================
-# config.ps1
-# =========================
+﻿# config.ps1
 
 $Config = @{
     Username  = "NetworkEngCode"
     BirthYear = 1988
 
-    # ASCII art file (left side)
     AsciiArtFile = ".\ascii-art.txt"
 
-    # Output SVGs
     OutputFiles = @{
         Dark  = "dark_mode.svg"
         Light = "light_mode.svg"
     }
 
-    # Layout / spacing
     Layout = @{
-    Width       = 900
-    Height      = 580
-    FontSize    = 14
-    LineHeight  = 18
+        Width       = 900
+        Height      = 560
+        FontSize    = 14
+        LineHeight  = 18
 
-    # ASCII block (left)
-    AsciiX      = 20
-    AsciiY      = 95   # ⬅ moved DOWN
+        AsciiX      = 20
+        AsciiY      = 75
 
-    # Content block (right)
-    ContentX    = 400  # ⬅ moved RIGHT
-    ContentY    = 120  # ⬅ moved DOWN
+        ContentX    = 360
+        ContentY    = 95
 
-    TargetWidth = 56
-}
-
+        TargetWidth = 56
     }
 
-    # Profile information
     Profile = [ordered]@{
         OS                      = "Windows"
         Host                    = "N/A"
@@ -45,13 +35,11 @@ $Config = @{
         Hobbies                 = "Networking, Automation"
     }
 
-    # Contact information
     Contact = [ordered]@{
         GitHub   = "NetworkEngCode"
         LinkedIn = "jerryrico"
     }
 
-    # Color themes
     Colors = @{
         Dark = @{
             Background = "#0d1117"
@@ -62,7 +50,6 @@ $Config = @{
             AddColor   = "#3fb950"
             DelColor   = "#f85149"
         }
-
         Light = @{
             Background = "#ffffff"
             Text       = "#24292f"
