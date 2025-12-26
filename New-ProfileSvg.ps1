@@ -49,6 +49,18 @@ function New-SvgDocument {
     $layout = $Config.Layout
     $targetWidth = $layout.TargetWidth
 
+    # Layout offsets (prevents overlaps)
+    $asciiStartY   = if ($layout.ContainsKey("AsciiY"))   { [int]$layout.AsciiY }   else { 30 }
+    $contentStartY = if ($layout.ContainsKey("ContentY")) { [int]$layout.ContentY } else { 30 }
+
+    # ASCII sizing (KEY FIX)
+    $asciiFontSize   = if ($layout.ContainsKey("AsciiFontSize"))   { [int]$layout.AsciiFontSize }   else { [int]$layout.FontSize }
+    $asciiLineHeight = if ($layout.ContainsKey("AsciiLineHeight")) { [int]$layout.AsciiLineHeight } else { [int]$layout.LineHeight }
+
+    # Clip ASCII to the left column so it NEVER covers the content area (KEY FIX)
+    $asciiClipWidth = [int]$layout.ContentX - 25
+    if ($asciiClipWidth -lt 200) { $asciiClipWidth = 200 }
+
     # Calculate age from birth year
     $years = (Get-Date).Year - $Config.BirthYear
     $yearPlural = if ($years -ne 1) { "s" } else { "" }
@@ -58,6 +70,11 @@ function New-SvgDocument {
     $svg = @"
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" font-family="ConsolasFallback,Consolas,monospace" width="$($layout.Width)px" height="$($layout.Height)px" font-size="$($layout.FontSize)px">
+  <defs>
+    <clipPath id="asciiClip">
+      <rect x="0" y="0" width="$asciiClipWidth" height="$($layout.Height)" />
+    </clipPath>
+  </defs>
   <style>
 @font-face {
 src: local('Consolas'), local('Consolas Bold');
@@ -71,41 +88,38 @@ size-adjust: 109%;
 .addColor {fill: $($c.AddColor);}
 .delColor {fill: $($c.DelColor);}
 .cc {fill: $($c.Dots);}
+.ascii { font-size: ${asciiFontSize}px; }  /* KEY FIX */
 text, tspan {white-space: pre;}
 </style>
   <rect width="$($layout.Width)px" height="$($layout.Height)px" fill="$($c.Background)" rx="15" />
 "@
 
-    # Add ASCII art section
+    # Add ASCII art section (smaller + clipped)
     $asciiLines = Get-AsciiArtLines -FilePath $Config.AsciiArtFile
-    $svg += "`n  <text x=`"$($layout.AsciiX)`" y=`"$asciiStartY`" fill=`"$($c.Text)`" class=`"ascii`" transform=`"translate($($layout.AsciiX),$asciiStartY) scale(0.65) translate(-$($layout.AsciiX),-$asciiStartY)`">"
+    $svg += "`n  <text x=`"$($layout.AsciiX)`" y=`"$asciiStartY`" fill=`"$($c.Text)`" class=`"ascii`" clip-path=`"url(#asciiClip)`">"
 
-
-    $y = 30
+    $y = $asciiStartY
     foreach ($line in $asciiLines) {
         $escapedLine = $line -replace '&', '&amp;' -replace '<', '&lt;' -replace '>', '&gt;'
         $svg += "`n    <tspan x=`"$($layout.AsciiX)`" y=`"$y`">$escapedLine</tspan>"
-        $y += $layout.LineHeight
+        $y += $asciiLineHeight
     }
     $svg += "`n  </text>"
 
     # Build content section
     $contentX = $layout.ContentX
-    $svg += "`n  <text x=`"$contentX`" y=`"30`" fill=`"$($c.Text)`">"
+    $svg += "`n  <text x=`"$contentX`" y=`"$contentStartY`" fill=`"$($c.Text)`">"
 
     # Username header
     $emDash = [char]0x2014
-    $svg += "`n    <tspan x=`"$contentX`" y=`"30`">$($Config.Username)</tspan> -"
-    $svg += ($emDash.ToString() * 43)  # em-dashes for separator
-    $svg += "-"
-    $svg += $emDash
-    $svg += "-"
+    $svg += "`n    <tspan x=`"$contentX`" y=`"$contentStartY`">$($Config.Username)</tspan> -"
+    $svg += ($emDash.ToString() * 43)
+    $svg += "-$emDash-"
 
     # Profile section
-    $y = 50
+    $y = $contentStartY + 20
     foreach ($key in $Config.Profile.Keys) {
         if ($key -eq "Uptime" -or $null -eq $Config.Profile[$key]) {
-            # Dynamic field - Uptime/Age
             $dots = Get-DotJustifiedLine -Key "Uptime" -Value $ageValue -TargetWidth $targetWidth
             $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
             $svg += "<tspan class=`"key`">Uptime</tspan>:"
@@ -113,7 +127,6 @@ text, tspan {white-space: pre;}
             $svg += "<tspan class=`"value`" id=`"age_data`">$ageValue</tspan>"
         }
         elseif ($key -eq "Languages.Programming") {
-            # Special formatting for Languages.Programming
             $value = $Config.Profile[$key]
             $dots = Get-DotJustifiedLine -Key $key -Value $value -TargetWidth $targetWidth
             $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
@@ -122,7 +135,6 @@ text, tspan {white-space: pre;}
             $svg += "<tspan class=`"value`">$value</tspan>"
         }
         else {
-            # Regular profile field
             $value = $Config.Profile[$key]
             $dots = Get-DotJustifiedLine -Key $key -Value $value -TargetWidth $targetWidth
             $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
@@ -133,16 +145,13 @@ text, tspan {white-space: pre;}
         $y += $layout.LineHeight
     }
 
-    # Contact section header
-    $y += $layout.LineHeight  # Add gap before Contact
+    # Contact header
+    $y += $layout.LineHeight
     $svg += "<tspan x=`"$contentX`" y=`"$y`">- Contact</tspan> -"
     $svg += ($emDash.ToString() * 46)
-    $svg += "-"
-    $svg += $emDash
-    $svg += "-"
+    $svg += "-$emDash-"
     $y += $layout.LineHeight
 
-    # Contact items
     foreach ($key in $Config.Contact.Keys) {
         $value = $Config.Contact[$key]
         $dots = Get-DotJustifiedLine -Key $key -Value $value -TargetWidth $targetWidth
@@ -153,85 +162,52 @@ text, tspan {white-space: pre;}
         $y += $layout.LineHeight
     }
 
-    # GitHub Stats section header
-    $y += $layout.LineHeight  # Add gap before GitHub Stats
+    # GitHub Stats header
+    $y += $layout.LineHeight
     $svg += "<tspan x=`"$contentX`" y=`"$y`">- GitHub Stats</tspan> -"
     $svg += ($emDash.ToString() * 41)
-    $svg += "-"
-    $svg += $emDash
-    $svg += "-"
+    $svg += "-$emDash-"
     $y += $layout.LineHeight
 
-    # GitHub Stats - Individual lines matching Show-Neofetch.ps1
-    # Repos
+    # Stats placeholders (updated by today.ps1)
     $repoDots = Get-DotJustifiedLine -Key "Repos" -Value "0" -TargetWidth $targetWidth
-    $svg += "`n<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
-    $svg += "<tspan class=`"key`">Repos</tspan>:"
-    $svg += "<tspan class=`"cc`" id=`"repo_data_dots`"> $repoDots </tspan>"
-    $svg += "<tspan class=`"value`" id=`"repo_data`">0</tspan>"
+    $svg += "`n<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan><tspan class=`"key`">Repos</tspan>:<tspan class=`"cc`" id=`"repo_data_dots`"> $repoDots </tspan><tspan class=`"value`" id=`"repo_data`">0</tspan>"
     $y += $layout.LineHeight
 
-    # Contributed
     $contribDots = Get-DotJustifiedLine -Key "Contributed" -Value "0" -TargetWidth $targetWidth
-    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
-    $svg += "<tspan class=`"key`">Contributed</tspan>:"
-    $svg += "<tspan class=`"cc`" id=`"contrib_data_dots`"> $contribDots </tspan>"
-    $svg += "<tspan class=`"value`" id=`"contrib_data`">0</tspan>"
+    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan><tspan class=`"key`">Contributed</tspan>:<tspan class=`"cc`" id=`"contrib_data_dots`"> $contribDots </tspan><tspan class=`"value`" id=`"contrib_data`">0</tspan>"
     $y += $layout.LineHeight
 
-    # Stars
     $starDots = Get-DotJustifiedLine -Key "Stars" -Value "0" -TargetWidth $targetWidth
-    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
-    $svg += "<tspan class=`"key`">Stars</tspan>:"
-    $svg += "<tspan class=`"cc`" id=`"star_data_dots`"> $starDots </tspan>"
-    $svg += "<tspan class=`"value`" id=`"star_data`">0</tspan>"
+    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan><tspan class=`"key`">Stars</tspan>:<tspan class=`"cc`" id=`"star_data_dots`"> $starDots </tspan><tspan class=`"value`" id=`"star_data`">0</tspan>"
     $y += $layout.LineHeight
 
-    # Commits
     $commitDots = Get-DotJustifiedLine -Key "Commits" -Value "0" -TargetWidth $targetWidth
-    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
-    $svg += "<tspan class=`"key`">Commits</tspan>:"
-    $svg += "<tspan class=`"cc`" id=`"commit_data_dots`"> $commitDots </tspan>"
-    $svg += "<tspan class=`"value`" id=`"commit_data`">0</tspan>"
+    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan><tspan class=`"key`">Commits</tspan>:<tspan class=`"cc`" id=`"commit_data_dots`"> $commitDots </tspan><tspan class=`"value`" id=`"commit_data`">0</tspan>"
     $y += $layout.LineHeight
 
-    # Followers
     $followerDots = Get-DotJustifiedLine -Key "Followers" -Value "0" -TargetWidth $targetWidth
-    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
-    $svg += "<tspan class=`"key`">Followers</tspan>:"
-    $svg += "<tspan class=`"cc`" id=`"follower_data_dots`"> $followerDots </tspan>"
-    $svg += "<tspan class=`"value`" id=`"follower_data`">0</tspan>"
+    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan><tspan class=`"key`">Followers</tspan>:<tspan class=`"cc`" id=`"follower_data_dots`"> $followerDots </tspan><tspan class=`"value`" id=`"follower_data`">0</tspan>"
     $y += $layout.LineHeight
 
-    # Lines of Code
     $locDots = Get-DotJustifiedLine -Key "Lines of Code" -Value "0" -TargetWidth $targetWidth
-    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
-    $svg += "<tspan class=`"key`">Lines of Code</tspan>:"
-    $svg += "<tspan class=`"cc`" id=`"loc_data_dots`"> $locDots </tspan>"
-    $svg += "<tspan class=`"value`" id=`"loc_data`">0</tspan>"
+    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan><tspan class=`"key`">Lines of Code</tspan>:<tspan class=`"cc`" id=`"loc_data_dots`"> $locDots </tspan><tspan class=`"value`" id=`"loc_data`">0</tspan>"
     $y += $layout.LineHeight
 
-    # Additions/Deletions on separate line - special case with two values
-    # Use a placeholder value that represents typical combined length
     $addDelValue = "0++, 0--"
     $addDelDots = Get-DotJustifiedLine -Key "(+/-)" -Value $addDelValue -TargetWidth $targetWidth
-    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan>"
-    $svg += "<tspan class=`"key`">(+/-)</tspan>:"
-    $svg += "<tspan class=`"cc`" id=`"loc_add_del_dots`"> $addDelDots </tspan>"
+    $svg += "<tspan x=`"$contentX`" y=`"$y`" class=`"cc`">. </tspan><tspan class=`"key`">(+/-)</tspan>:<tspan class=`"cc`" id=`"loc_add_del_dots`"> $addDelDots </tspan>"
     $svg += "<tspan class=`"addColor`" id=`"loc_add`">0</tspan><tspan class=`"addColor`">++</tspan>, "
     $svg += "<tspan class=`"delColor`" id=`"loc_del`">0</tspan><tspan class=`"delColor`">--</tspan>"
 
     # Close text element
     $svg += "`n</text>"
 
-    # Add color palette at the bottom (similar to neofetch)
-    # Standard terminal colors adapted for dark/light mode
+    # Color palette at bottom
     if ($Mode -eq "Dark") {
-        # Bright colors for dark mode
         $paletteColors = @("#555753", "#ef2929", "#8ae234", "#fce94f", "#729fcf", "#ad7fa8", "#34e2e2", "#eeeeec")
     }
     else {
-        # Darker colors for light mode
         $paletteColors = @("#2e3436", "#cc0000", "#4e9a06", "#c4a000", "#3465a4", "#75507b", "#06989a", "#555753")
     }
 
@@ -247,11 +223,9 @@ text, tspan {white-space: pre;}
 
     # Close SVG
     $svg += "`n</svg>`n"
-
     return $svg
 }
 
-# Generate both SVG files
 Write-Host "Generating SVG files from config..."
 
 # Dark mode

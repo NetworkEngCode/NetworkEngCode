@@ -4,6 +4,7 @@ $Config = @{
     Username  = "NetworkEngCode"
     BirthYear = 1988
 
+    # ASCII art file (relative path)
     AsciiArtFile = ".\ascii-art.txt"
 
     OutputFiles = @{
@@ -17,10 +18,16 @@ $Config = @{
         FontSize    = 14
         LineHeight  = 18
 
+        # ASCII block position (left side)
         AsciiX      = 20
-        AsciiY      = 105
+        AsciiY      = 70
 
-        ContentX = 420
+        # Make ASCII smaller (KEY FIX)
+        AsciiFontSize   = 8
+        AsciiLineHeight = 10
+
+        # Right-side content position
+        ContentX    = 360
         ContentY    = 95
 
         TargetWidth = 56
