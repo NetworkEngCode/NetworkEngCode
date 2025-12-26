@@ -1,7 +1,7 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg">
-  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg">
-  <img alt="Profile SVG" src="light_mode.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NetworkEngCode/NetworkEngCode/main/dark_mode.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NetworkEngCode/NetworkEngCode/main/light_mode.svg">
+  <img alt="Profile SVG" src="https://raw.githubusercontent.com/NetworkEngCode/NetworkEngCode/main/light_mode.svg">
 </picture>
 
 
