@@ -1,3 +1,7 @@
+![Profile SVG](https://github.com/NetworkEngCode/NetworkEngCode/raw/main/light_mode.svg#gh-light-mode-only)
+![Profile SVG](https://github.com/NetworkEngCode/NetworkEngCode/raw/main/dark_mode.svg#gh-dark-mode-only)
+
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NetworkEngCode/NetworkEngCode/main/dark_mode.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NetworkEngCode/NetworkEngCode/main/light_mode.svg">
