@@ -16,11 +16,14 @@ $Config = @{
     }
 
     # Layout / spacing
+        # Layout / spacing
     Layout = @{
         Width       = 900
-        Height      = 600
+        Height      = 700  # <--- Change this value
         FontSize    = 14
-        LineHeight  = 18
+        # ... rest of the layout settings
+    }
+
 
         # Left ASCII block position
         AsciiX      = 20
