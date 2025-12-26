@@ -78,7 +78,8 @@ text, tspan {white-space: pre;}
 
     # Add ASCII art section
     $asciiLines = Get-AsciiArtLines -FilePath $Config.AsciiArtFile
-    $svg += "`n  <text x=`"$($layout.AsciiX)`" y=`"30`" fill=`"$($c.Text)`" class=`"ascii`">"
+    $svg += "`n  <text x=`"$($layout.AsciiX)`" y=`"$asciiStartY`" fill=`"$($c.Text)`" class=`"ascii`" transform=`"translate($($layout.AsciiX),$asciiStartY) scale(0.65) translate(-$($layout.AsciiX),-$asciiStartY)`">"
+
 
     $y = 30
     foreach ($line in $asciiLines) {
