@@ -1,4 +1,4 @@
-﻿# config.ps1
+# config.ps1
 
 $Config = @{
     Username  = "NetworkEngCode"
@@ -18,9 +18,9 @@ $Config = @{
         LineHeight  = 18
 
         AsciiX      = 20
-        AsciiY      = 75
+        AsciiY      = 105
 
-        ContentX    = 360
+        ContentX = 420
         ContentY    = 95
 
         TargetWidth = 56
