@@ -2,11 +2,21 @@ $Config = @{
     Username  = "NetworkEngCode"
     BirthYear = 1988
 
-    AsciiArt = "ascii-art.txt"
+    AsciiArtFile = ".\ascii-art.txt"
 
     OutputFiles = @{
         Dark  = "dark_mode.svg"
         Light = "light_mode.svg"
+    }
+
+    Layout = @{
+        Width       = 900
+        Height      = 520
+        FontSize    = 14
+        LineHeight  = 18
+        AsciiX      = 25
+        ContentX    = 360
+        TargetWidth = 56
     }
 
     Profile = [ordered]@{
@@ -23,4 +33,5 @@ $Config = @{
         LinkedIn = "jerryrico"
     }
 }
+
 
