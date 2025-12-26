@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" font-family="ConsolasFallback,Consolas,monospace" width="900px" height="900px" font-size="14px">
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ConsolasFallback,Consolas,monospace" width="900px" height="560px" font-size="14px">
   <style>
 @font-face {
 src: local('Consolas'), local('Consolas Bold');
@@ -15,17 +15,17 @@ size-adjust: 109%;
 .cc {fill: #57606a;}
 text, tspan {white-space: pre;}
 </style>
-  <rect width="900px" height="900px" fill="#ffffff" rx="15" />
-  <text x="25" y="30" fill="#24292f" class="ascii">
-    <tspan x="25" y="30">███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗</tspan>
-    <tspan x="25" y="48">████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝</tspan>
-    <tspan x="25" y="66">██╔██╗ ██║█████╗     ██║   ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ </tspan>
-    <tspan x="25" y="84">██║╚██╗██║██╔══╝     ██║   ██║███╗██║██║   ██║██╔══██╗██╔═██╗ </tspan>
-    <tspan x="25" y="102">██║ ╚████║███████╗   ██║   ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗</tspan>
-    <tspan x="25" y="120">╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝</tspan>
-    <tspan x="25" y="138"></tspan>
-    <tspan x="25" y="156">          Network Automation Engineer</tspan>
-    <tspan x="25" y="174">               Python • Git • CI/CD</tspan>
+  <rect width="900px" height="560px" fill="#ffffff" rx="15" />
+  <text x="20" y="30" fill="#24292f" class="ascii">
+    <tspan x="20" y="30">███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗</tspan>
+    <tspan x="20" y="48">████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝</tspan>
+    <tspan x="20" y="66">██╔██╗ ██║█████╗     ██║   ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ </tspan>
+    <tspan x="20" y="84">██║╚██╗██║██╔══╝     ██║   ██║███╗██║██║   ██║██╔══██╗██╔═██╗ </tspan>
+    <tspan x="20" y="102">██║ ╚████║███████╗   ██║   ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗</tspan>
+    <tspan x="20" y="120">╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝</tspan>
+    <tspan x="20" y="138"></tspan>
+    <tspan x="20" y="156">          Network Automation Engineer</tspan>
+    <tspan x="20" y="174">               Python • Git • CI/CD</tspan>
   </text>
   <text x="360" y="30" fill="#24292f">
     <tspan x="360" y="30">NetworkEngCode</tspan> -———————————————————————————————————————————-—-<tspan x="360" y="50" class="cc">. </tspan><tspan class="key">OS</tspan>:<tspan class="cc"> ............................................ </tspan><tspan class="value">Windows</tspan><tspan x="360" y="68" class="cc">. </tspan><tspan class="key">Host</tspan>:<tspan class="cc"> .............................................. </tspan><tspan class="value">N/A</tspan><tspan x="360" y="86" class="cc">. </tspan><tspan class="key">Kernel</tspan>:<tspan class="cc"> .................... </tspan><tspan class="value">Network Automation Engineer</tspan><tspan x="360" y="104" class="cc">. </tspan><tspan class="key">IDE</tspan>:<tspan class="cc"> ........................................... </tspan><tspan class="value">VS Code</tspan><tspan x="360" y="122" class="cc">. </tspan><tspan class="key">Languages</tspan>.<tspan class="key">Programming</tspan>:<tspan class="cc"> .......................... </tspan><tspan class="value">Python</tspan><tspan x="360" y="140" class="cc">. </tspan><tspan class="key">Hobbies</tspan>:<tspan class="cc"> ........................ </tspan><tspan class="value">Networking, Automation</tspan><tspan x="360" y="176">- Contact</tspan> -——————————————————————————————————————————————-—-
