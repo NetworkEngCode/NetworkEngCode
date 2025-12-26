@@ -16,8 +16,6 @@ $Config = @{
     }
 
     # Layout / spacing
-        # Layout / spacing
-    # Layout / spacing
     Layout = @{
         Width       = 900
         Height      = 700
@@ -29,21 +27,7 @@ $Config = @{
         AsciiY      = 95
 
         # Right-side content position
-        ContentX    = 420  # <--- INCREASE THIS value significantly
-        ContentY    = 140
-
-        TargetWidth = 56
-    }
-    # ... rest of the config file
-
-
-
-        # Left ASCII block position
-        AsciiX      = 20
-        AsciiY      = 95
-
-        # Right-side content position
-        ContentX    = 360
+        ContentX    = 420  # <--- Increased value for separation
         ContentY    = 140
 
         TargetWidth = 56
