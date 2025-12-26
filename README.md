@@ -1,20 +1,9 @@
-# <picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="dark_mode.svg">
+  <source media="(prefers-color-scheme: light)" srcset="light_mode.svg">
+  <img alt="Profile SVG" src="light_mode.svg">
+</picture>
 
-# &nbsp; <source media="(prefers-color-scheme: dark)" srcset="./dark\_mode.svg">
-
-# &nbsp; <source media="(prefers-color-scheme: light)" srcset="./light\_mode.svg">
-
-# &nbsp; <img alt="Profile SVG" src="./light\_mode.svg">
-
-# </picture>
-
-# 
-
-
-
-# 
-
-# 
 
 # 👋 Hi, I'm Jerry
 
