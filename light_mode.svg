@@ -8,15 +8,15 @@ font-display: swap;
 -webkit-size-adjust: 109%;
 size-adjust: 109%;
 }
-.key {fill: ;}
-.value {fill: ;}
-.addColor {fill: ;}
-.delColor {fill: ;}
-.cc {fill: ;}
+.key {fill: #0969da;}
+.value {fill: #57606a;}
+.addColor {fill: #1a7f37;}
+.delColor {fill: #cf222e;}
+.cc {fill: #d0d7de;}
 text, tspan {white-space: pre;}
 </style>
-  <rect width="900px" height="520px" fill="" rx="15" />
-  <text x="25" y="30" fill="" class="ascii">
+  <rect width="900px" height="520px" fill="#ffffff" rx="15" />
+  <text x="25" y="30" fill="#24292f" class="ascii">
     <tspan x="25" y="30">███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗</tspan>
     <tspan x="25" y="48">████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝</tspan>
     <tspan x="25" y="66">██╔██╗ ██║█████╗     ██║   ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ </tspan>
@@ -27,7 +27,7 @@ text, tspan {white-space: pre;}
     <tspan x="25" y="156">          Network Automation Engineer</tspan>
     <tspan x="25" y="174">               Python • Git • CI/CD</tspan>
   </text>
-  <text x="360" y="30" fill="">
+  <text x="360" y="30" fill="#24292f">
     <tspan x="360" y="30">NetworkEngCode</tspan> -———————————————————————————————————————————-—-<tspan x="360" y="50" class="cc">. </tspan><tspan class="key">OS</tspan>:<tspan class="cc"> ............................................ </tspan><tspan class="value">Windows</tspan><tspan x="360" y="68" class="cc">. </tspan><tspan class="key">Host</tspan>:<tspan class="cc"> .............................................. </tspan><tspan class="value">N/A</tspan><tspan x="360" y="86" class="cc">. </tspan><tspan class="key">Kernel</tspan>:<tspan class="cc"> .................... </tspan><tspan class="value">Network Automation Engineer</tspan><tspan x="360" y="104" class="cc">. </tspan><tspan class="key">IDE</tspan>:<tspan class="cc"> ........................................... </tspan><tspan class="value">VS Code</tspan><tspan x="360" y="122" class="cc">. </tspan><tspan class="key">Languages</tspan>.<tspan class="key">Programming</tspan>:<tspan class="cc"> .......................... </tspan><tspan class="value">Python</tspan><tspan x="360" y="140" class="cc">. </tspan><tspan class="key">Hobbies</tspan>:<tspan class="cc"> ........................ </tspan><tspan class="value">Networking, Automation</tspan><tspan x="360" y="176">- Contact</tspan> -——————————————————————————————————————————————-—-
 <tspan x="360" y="194" class="cc">. </tspan><tspan class="key">GitHub</tspan>:<tspan class="cc"> ................................. </tspan><tspan class="value">NetworkEngCode</tspan>
 <tspan x="360" y="212" class="cc">. </tspan><tspan class="key">LinkedIn</tspan>:<tspan class="cc"> .................................... </tspan><tspan class="value">jerryrico</tspan><tspan x="360" y="248">- GitHub Stats</tspan> -—————————————————————————————————————————-—-
