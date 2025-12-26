@@ -17,16 +17,25 @@ $Config = @{
 
     # Layout / spacing
         # Layout / spacing
-Layout = @{
-        # ... other settings
+    # Layout / spacing
+    Layout = @{
+        Width       = 900
         Height      = 700
-        # ... other settings
+        FontSize    = 14
+        LineHeight  = 18
+
+        # Left ASCII block position
+        AsciiX      = 20
+        AsciiY      = 95
 
         # Right-side content position
-        ContentX    = 360  # <--- This is likely the setting causing misalignment
+        ContentX    = 420  # <--- INCREASE THIS value significantly
         ContentY    = 140
-        # ... other settings
+
+        TargetWidth = 56
     }
+    # ... rest of the config file
+
 
 
         # Left ASCII block position
