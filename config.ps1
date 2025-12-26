@@ -17,11 +17,15 @@ $Config = @{
 
     # Layout / spacing
         # Layout / spacing
-    Layout = @{
-        Width       = 900
-        Height      = 700  # <--- Change this value
-        FontSize    = 14
-        # ... rest of the layout settings
+Layout = @{
+        # ... other settings
+        Height      = 700
+        # ... other settings
+
+        # Right-side content position
+        ContentX    = 360  # <--- This is likely the setting causing misalignment
+        ContentY    = 140
+        # ... other settings
     }
 
 
